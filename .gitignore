@@ -1,0 +1,30 @@
+# Arquivos do ambiente virtual (venv ou virtualenv)
+venv/
+.env/
+
+# Arquivos de compilação Python
+__pycache__/
+
+# Arquivos gerados durante a execução do programa
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.db
+*.sqlite3
+
+# Logs e arquivos temporários
+*.log
+*.swp
+*.swo
+*.swn
+*.tmp
+
+# Arquivos gerados por IDEs ou editores de texto
+.vscode/
+.idea/
+*.pyc
+
+# Dependências do projeto (por exemplo, para projetos baseados em Poetry ou pipenv)
+# Você pode ajustar essa seção dependendo de como você gerencia suas dependências.
+# Certifique-se de que você está gerenciando suas dependências de forma adequada.
