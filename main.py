@@ -1,4 +1,5 @@
 import os
+import random
 
 import pygame
 
@@ -90,9 +91,46 @@ class Bird:
     def get_mask(self):
         pygame.mask.from_surface(self.image)
 
-
 class Pipe:
-    ...
+    DISTANCE = 200
+    VELOCITY = 5
+
+    def __init__(self, x):
+        self.x = x
+        self.height = 0
+        self.pos_top = 0
+        self.pos_bottom = 0
+        self.PIPE_TOP = pygame.transform.flip(IMAGE_PIPE, False, True)
+        self.PIPE_BOTTOM = IMAGE_PIPE
+        self.passed = False
+        self.set_height()
+
+    def set_height(self):
+        self.height = random.randrange(50, 450)
+        self.pos_top = self.height - self.PIPE_TOP.get_height()
+        self.pos_bottom = self.height - self.DISTANCE
+    
+    def move(self):
+        self.x -= self.VELOCITY
+
+    def design(self, screen):
+        screen.blit(self.PIPE_TOP, (self.x, self.pos_top))
+        screen.blit(self.PIPE_TOP, (self.x, self.pos_bottom))
+
+    def collide(self, bird):
+        bird_mask = bird.get_mask()
+        top_mask = pygame.mask.from_surface(self.PIPE_TOP)
+        bottom_mask = pygame.mask.from_surface(self.PIPE_BOTTOM)
+
+        top_distance = (self.x - bird.x, self.pos_top - round(bird.y))
+        bottom_distance = (self.x - bird.x, self.pos_bottom - round(bird.y))
+
+        top_point = pygame.mask.overlap(top_mask, top_distance)
+        bottom_point = pygame.mask.overlap(bottom_mask, bottom_distance)
+
+        return top_point or bottom_point
+            
+
 
 class Floor:
     ...
